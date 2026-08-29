@@ -418,24 +418,7 @@ export const bracketsBothSidesBlocks: ReactElement[] = [
 
     <StackLayout key="layout-brackets-question-solve" maxWidth="xl">
         <Block id="brackets-question-solve" padding="md">
-            <EditableParagraph id="para-brackets-question-solve" blockId="brackets-question-solve">
-                Tidy up <InlineFormula latex="3(x + 2) = x + 14" colorMap={{}} /> the same way,
-                and <InlineFormula latex="x" colorMap={{}} /> turns out to be{" "}
-                <InlineFeedback
-                    varName="answer_brackets_solve"
-                    correctValue="4"
-                    position="terminal"
-                    successMessage="— spot on, expanding gives 3x + 6 = x + 14, and clearing one x and the 6 leaves 2x = 8"
-                    failureMessage="— not this time"
-                    hint="Expand the bracket first, then take one x from each side, then take 6 from each side"
-                >
-                    <InlineClozeInput
-                        varName="answer_brackets_solve"
-                        correctAnswer="4"
-                        {...clozePropsFromDefinition(getVariableInfo('answer_brackets_solve'))}
-                    />
-                </InlineFeedback>.
-            </EditableParagraph>
+            <EditableParagraph id="para-brackets-question-solve" blockId="brackets-question-solve">Tidy up <InlineFormula latex={"3(x + 2) = x + 14"} colorMap={{}} color={"#000000"} id={"inlineFormula-1788024370374-np53a"} /> the same way, and <InlineFormula latex={"x"} colorMap={{}} color={"#000000"} id={"inlineFormula-1788024370374-rwhrm"} /> turns out to be <InlineFeedback varName={"answer_brackets_solve"} correctValue={"4"} caseSensitive={false} position={"terminal"} successMessage={"— spot on, expanding gives 3x + 6 = x + 14, and clearing one x and the 6 leaves 2x = 8"} failureMessage={"— not this time"} hint={"Expand the bracket first, then take one x from each side, then take 6 from each side"} reviewLabel={"Review this concept"}><InlineClozeInput varName={"answer_brackets_solve"} correctAnswer={"4"} placeholder={"???"} color={"#E53935"} bgColor={"rgba(59, 130, 246, 0.35)"} caseSensitive={false} id={"cloze-1788024370374-z2al9"} /></InlineFeedback>.</EditableParagraph>
         </Block>
     </StackLayout>,
 
