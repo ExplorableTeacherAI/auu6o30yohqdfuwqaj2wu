@@ -179,21 +179,31 @@ export const variableDefinitions: Record<string, VariableDefinition> = {
     // ─────────────────────────────────────────
     // WHEN A PRODUCT IS ZERO — (x + 2)(x + 3)
     // ─────────────────────────────────────────
-    zeroProductX: {
-        defaultValue: 1,
+    zeroProductDialA: {
+        defaultValue: 3,
         type: 'number',
-        label: 'Value of x',
-        description: 'Shared x value read by the rectangle and the product curve',
-        min: -5,
-        max: 2,
+        label: 'First dial',
+        description: 'Number held by the teal dial',
+        min: -6,
+        max: 6,
         step: 0.5,
-        color: '#334155',
+        color: '#62D0AD',
+    },
+    zeroProductDialB: {
+        defaultValue: 4,
+        type: 'number',
+        label: 'Second dial',
+        description: 'Number held by the indigo dial',
+        min: -6,
+        max: 6,
+        step: 0.5,
+        color: '#8E90F5',
     },
     zeroProductHighlight: {
         defaultValue: '',
         type: 'text',
         label: 'Zero product highlight',
-        description: 'Which bracket is highlighted across the rectangle and the curve',
+        description: 'Which dial is highlighted from the prose',
         color: '#62D0AD',
         bgColor: 'rgba(98, 208, 173, 0.2)',
     },
@@ -203,8 +213,8 @@ export const variableDefinitions: Record<string, VariableDefinition> = {
         label: 'When a product is zero',
         description: 'The condition that makes a product equal zero',
         placeholder: '???',
-        correctAnswer: 'one of the sides is zero',
-        options: ['one of the sides is zero', 'both sides are equal', 'x is zero'],
+        correctAnswer: 'one of the numbers is zero',
+        options: ['one of the numbers is zero', 'both numbers are equal', 'the numbers are opposites'],
         color: '#8E90F5',
     },
     answer_zero_product_root: {
