@@ -136,6 +136,46 @@ export const variableDefinitions: Record<string, VariableDefinition> = {
         options: ['tip', 'stay level', 'empty'],
         color: '#8E90F5',
     },
+    // ─────────────────────────────────────────
+    // BRACKETS AND x ON BOTH SIDES — 2(x + 3) = x + 11
+    // ─────────────────────────────────────────
+    bracketsX: {
+        defaultValue: 2,
+        type: 'number',
+        label: 'Value of x',
+        description: 'The shared x value read by both the towers and the graph',
+        min: 0,
+        max: 10,
+        step: 0.5,
+        color: '#334155',
+    },
+    bracketsHighlight: {
+        defaultValue: '',
+        type: 'text',
+        label: 'Brackets highlight',
+        description: 'Which side of the equation is highlighted across both views',
+        color: '#62D0AD',
+        bgColor: 'rgba(98, 208, 173, 0.2)',
+    },
+    answer_brackets_solve: {
+        defaultValue: '',
+        type: 'text',
+        label: 'Second equation answer',
+        description: 'Solution of 3(x + 2) = x + 14',
+        placeholder: '???',
+        correctAnswer: '4',
+        color: '#8E90F5',
+    },
+    answer_brackets_cross: {
+        defaultValue: '',
+        type: 'select',
+        label: 'Where sides are equal',
+        description: 'What the two lines do at the solution',
+        placeholder: '???',
+        correctAnswer: 'cross',
+        options: ['cross', 'are steepest', 'reach zero'],
+        color: '#8E90F5',
+    },
     answer_balance_solve: {
         defaultValue: '',
         type: 'text',
