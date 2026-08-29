@@ -452,49 +452,7 @@ export const keepingTheBalanceBlocks: ReactElement[] = [
 
     <StackLayout key="layout-balance-question-tip" maxWidth="xl">
         <Block id="balance-question-tip" padding="md">
-            <EditableParagraph id="para-balance-question-tip" blockId="balance-question-tip">
-                Lifting four blocks off the left pan and leaving the right pan untouched makes the
-                scales{" "}
-                <InlineFeedback
-                    varName="answer_balance_tip"
-                    correctValue="tip"
-                    position="terminal"
-                    successMessage="— yes, the left side is suddenly lighter, so the beam drops on the right"
-                    failureMessage="— have a look at the scales again"
-                    hint="Two sides stay equal only while they lose the same amount"
-                    visualizationHint={{
-                        blockId: "balance-visual",
-                        hintKey: "feedback-balance-one-sided",
-                        label: "Discover it yourself",
-                        steps: [
-                            {
-                                gesture: "drag",
-                                label: "Drag all four loose blocks off the left pan and watch the beam drop on the right",
-                                position: { x: "19%", y: "40%" },
-                                completionVar: "balanceLeftUnits",
-                                completionValue: 0,
-                                completionTolerance: 0.5,
-                            },
-                            {
-                                gesture: "drag",
-                                label: "Now take four blocks off the right pan too — the beam comes back level",
-                                position: { x: "80%", y: "44%" },
-                                completionVar: "balanceRightUnits",
-                                completionValue: 15,
-                                completionTolerance: 0.5,
-                            },
-                        ],
-                        resetVars: { balanceLeftBags: 3, balanceLeftUnits: 4, balanceRightUnits: 19 },
-                    }}
-                >
-                    <InlineClozeChoice
-                        varName="answer_balance_tip"
-                        correctAnswer="tip"
-                        options={["tip", "stay level", "empty"]}
-                        {...choicePropsFromDefinition(getVariableInfo('answer_balance_tip'))}
-                    />
-                </InlineFeedback>.
-            </EditableParagraph>
+            <EditableParagraph id="para-balance-question-tip" blockId="balance-question-tip">Lifting four blocks off the left pan and leaving the right pan untouched makes the scales <InlineFeedback varName={"answer_balance_tip"} correctValue={"tip"} caseSensitive={false} position={"terminal"} successMessage={"— yes, the left side is suddenly lighter, so the beam drops on the right"} failureMessage={"— have a look at the scales again"} hint={"Two sides stay equal only while they lose the same amount"} reviewLabel={"Review this concept"} visualizationHint={{"blockId": "balance-visual", "hintKey": "feedback-balance-one-sided", "label": "Discover it yourself", "steps": [{"gesture": "drag", "label": "Drag all four loose blocks off the left pan and watch the beam drop on the right", "position": {"x": "19%", "y": "40%"}, "completionVar": "balanceLeftUnits", "completionValue": 0, "completionTolerance": 0.5}, {"gesture": "drag", "label": "Now take four blocks off the right pan too — the beam comes back level", "position": {"x": "80%", "y": "44%"}, "completionVar": "balanceRightUnits", "completionValue": 15, "completionTolerance": 0.5}], "resetVars": {"balanceLeftBags": 3, "balanceLeftUnits": 4, "balanceRightUnits": 19}}}><InlineClozeChoice varName={"answer_balance_tip"} correctAnswer={"tip"} options={["tip", "stay level", "empty"]} placeholder={"???"} color={"#E53935"} bgColor={"rgba(59, 130, 246, 0.35)"} id={"choice-1788024370369-4l9i6"} /></InlineFeedback>.</EditableParagraph>
         </Block>
     </StackLayout>,
 
