@@ -176,6 +176,46 @@ export const variableDefinitions: Record<string, VariableDefinition> = {
         options: ['cross', 'are steepest', 'reach zero'],
         color: '#8E90F5',
     },
+    // ─────────────────────────────────────────
+    // WHEN A PRODUCT IS ZERO — (x + 2)(x + 3)
+    // ─────────────────────────────────────────
+    zeroProductX: {
+        defaultValue: 1,
+        type: 'number',
+        label: 'Value of x',
+        description: 'Shared x value read by the rectangle and the product curve',
+        min: -5,
+        max: 2,
+        step: 0.5,
+        color: '#334155',
+    },
+    zeroProductHighlight: {
+        defaultValue: '',
+        type: 'text',
+        label: 'Zero product highlight',
+        description: 'Which bracket is highlighted across the rectangle and the curve',
+        color: '#62D0AD',
+        bgColor: 'rgba(98, 208, 173, 0.2)',
+    },
+    answer_zero_product_when: {
+        defaultValue: '',
+        type: 'select',
+        label: 'When a product is zero',
+        description: 'The condition that makes a product equal zero',
+        placeholder: '???',
+        correctAnswer: 'one of the sides is zero',
+        options: ['one of the sides is zero', 'both sides are equal', 'x is zero'],
+        color: '#8E90F5',
+    },
+    answer_zero_product_root: {
+        defaultValue: '',
+        type: 'text',
+        label: 'Second solution',
+        description: 'Second solution of (x - 4)(x + 1) = 0',
+        placeholder: '???',
+        correctAnswer: '-1',
+        color: '#8E90F5',
+    },
     answer_balance_solve: {
         defaultValue: '',
         type: 'text',
