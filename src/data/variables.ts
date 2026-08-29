@@ -85,6 +85,67 @@ export const variableDefinitions: Record<string, VariableDefinition> = {
     // ADD YOUR VARIABLES HERE
     // ========================================
 
+    // ─────────────────────────────────────────
+    // KEEPING THE BALANCE — scales puzzle 3x + 4 = 19
+    // ─────────────────────────────────────────
+    balanceLeftBags: {
+        defaultValue: 3,
+        type: 'number',
+        label: 'Bags on the left pan',
+        description: 'Number of sealed bags (each worth x) still on the left pan',
+        min: 0,
+        max: 3,
+        step: 1,
+        color: '#62D0AD',
+    },
+    balanceLeftUnits: {
+        defaultValue: 4,
+        type: 'number',
+        label: 'Loose blocks on the left pan',
+        description: 'Number of single blocks still on the left pan',
+        min: 0,
+        max: 4,
+        step: 1,
+        color: '#64748B',
+    },
+    balanceRightUnits: {
+        defaultValue: 19,
+        type: 'number',
+        label: 'Blocks on the right pan',
+        description: 'Number of single blocks still on the right pan',
+        min: 0,
+        max: 19,
+        step: 1,
+        color: '#64748B',
+    },
+    balanceHighlight: {
+        defaultValue: '',
+        type: 'text',
+        label: 'Balance highlight',
+        description: 'Active highlight id linking prose phrases to parts of the scales',
+        color: '#62D0AD',
+        bgColor: 'rgba(98, 208, 173, 0.2)',
+    },
+    answer_balance_tip: {
+        defaultValue: '',
+        type: 'select',
+        label: 'One-sided move answer',
+        description: 'What happens when blocks leave only one pan',
+        placeholder: '???',
+        correctAnswer: 'tip',
+        options: ['tip', 'stay level', 'empty'],
+        color: '#8E90F5',
+    },
+    answer_balance_solve: {
+        defaultValue: '',
+        type: 'text',
+        label: 'Five bag puzzle answer',
+        description: 'Weight of one bag when 5 bags and 3 blocks balance 38 blocks',
+        placeholder: '???',
+        correctAnswer: '7',
+        color: '#8E90F5',
+    },
+
     // Uncomment and modify these examples for your lesson:
 
     /*
