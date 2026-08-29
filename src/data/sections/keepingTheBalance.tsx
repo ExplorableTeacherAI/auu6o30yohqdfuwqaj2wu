@@ -458,25 +458,7 @@ export const keepingTheBalanceBlocks: ReactElement[] = [
 
     <StackLayout key="layout-balance-question-solve" maxWidth="xl">
         <Block id="balance-question-solve" padding="md">
-            <EditableParagraph id="para-balance-question-solve" blockId="balance-question-solve">
-                A different set of scales balances 5 bags and 3 blocks against 38 blocks, so one
-                bag is worth{" "}
-                <InlineFeedback
-                    varName="answer_balance_solve"
-                    correctValue="7"
-                    position="terminal"
-                    successMessage="— exactly, 3 blocks off both pans leaves 5 bags against 35, and 35 shared between 5 bags is 7 each"
-                    failureMessage="— not yet"
-                    hint="Clear the 3 loose blocks from both pans first, then share what is left between the five bags"
-                >
-                    <InlineClozeInput
-                        varName="answer_balance_solve"
-                        correctAnswer="7"
-                        {...clozePropsFromDefinition(getVariableInfo('answer_balance_solve'))}
-                    />
-                </InlineFeedback>{" "}
-                blocks.
-            </EditableParagraph>
+            <EditableParagraph id="para-balance-question-solve" blockId="balance-question-solve">A different set of scales balances 5 bags and 3 blocks against 38 blocks, so one bag is worth <InlineFeedback varName={"answer_balance_solve"} correctValue={"7"} caseSensitive={false} position={"terminal"} successMessage={"— exactly, 3 blocks off both pans leaves 5 bags against 35, and 35 shared between 5 bags is 7 each"} failureMessage={"— not yet"} hint={"Clear the 3 loose blocks from both pans first, then share what is left between the five bags"} reviewLabel={"Review this concept"}><InlineClozeInput varName={"answer_balance_solve"} correctAnswer={"7"} placeholder={"???"} color={"#FDD835"} bgColor={"rgba(59, 130, 246, 0.35)"} caseSensitive={false} id={"cloze-1788024370369-xcazp"} /></InlineFeedback> blocks.</EditableParagraph>
         </Block>
     </StackLayout>,
 ];
