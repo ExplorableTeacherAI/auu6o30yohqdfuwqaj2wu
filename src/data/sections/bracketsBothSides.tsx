@@ -424,48 +424,7 @@ export const bracketsBothSidesBlocks: ReactElement[] = [
 
     <StackLayout key="layout-brackets-question-cross" maxWidth="xl">
         <Block id="brackets-question-cross" padding="md">
-            <EditableParagraph id="para-brackets-question-cross" blockId="brackets-question-cross">
-                On a graph, the solution of an equation sits at the point where the two lines{" "}
-                <InlineFeedback
-                    varName="answer_brackets_cross"
-                    correctValue="cross"
-                    position="terminal"
-                    successMessage="— exactly, crossing means both sides are worth the same at that value of x"
-                    failureMessage="— worth another look"
-                    hint="Equal sides means equal heights, so the two dots have to be in the same place"
-                    visualizationHint={{
-                        blockId: "brackets-visual",
-                        hintKey: "feedback-brackets-cross",
-                        label: "Discover it yourself",
-                        steps: [
-                            {
-                                gesture: "drag-horizontal",
-                                label: "Slide the marker out to 8 — the teal tower shoots past the indigo one",
-                                position: { x: "29%", y: "86%" },
-                                completionVar: "bracketsX",
-                                completionValue: 8,
-                                completionTolerance: 0.6,
-                            },
-                            {
-                                gesture: "drag-horizontal",
-                                label: "Now bring it back to 5, where the towers level and the two dots meet",
-                                position: { x: "60%", y: "86%" },
-                                completionVar: "bracketsX",
-                                completionValue: 5,
-                                completionTolerance: 0.3,
-                            },
-                        ],
-                        resetVars: { bracketsX: 2, bracketsHighlight: "" },
-                    }}
-                >
-                    <InlineClozeChoice
-                        varName="answer_brackets_cross"
-                        correctAnswer="cross"
-                        options={["cross", "are steepest", "reach zero"]}
-                        {...choicePropsFromDefinition(getVariableInfo('answer_brackets_cross'))}
-                    />
-                </InlineFeedback>.
-            </EditableParagraph>
+            <EditableParagraph id="para-brackets-question-cross" blockId="brackets-question-cross">On a graph, the solution of an equation sits at the point where the two lines <InlineFeedback varName={"answer_brackets_cross"} correctValue={"cross"} caseSensitive={false} position={"terminal"} successMessage={"— exactly, crossing means both sides are worth the same at that value of x"} failureMessage={"— worth another look"} hint={"Equal sides means equal heights, so the two dots have to be in the same place"} reviewLabel={"Review this concept"} visualizationHint={{"blockId": "brackets-visual", "hintKey": "feedback-brackets-cross", "label": "Discover it yourself", "steps": [{"gesture": "drag-horizontal", "label": "Slide the marker out to 8 — the teal tower shoots past the indigo one", "position": {"x": "29%", "y": "86%"}, "completionVar": "bracketsX", "completionValue": 8, "completionTolerance": 0.6}, {"gesture": "drag-horizontal", "label": "Now bring it back to 5, where the towers level and the two dots meet", "position": {"x": "60%", "y": "86%"}, "completionVar": "bracketsX", "completionValue": 5, "completionTolerance": 0.3}], "resetVars": {"bracketsX": 2, "bracketsHighlight": ""}}}><InlineClozeChoice varName={"answer_brackets_cross"} correctAnswer={"cross"} options={["cross", "are steepest", "reach zero"]} placeholder={"???"} color={"#E53935"} bgColor={"rgba(59, 130, 246, 0.35)"} id={"choice-1788024370375-gzrnp"} /></InlineFeedback>.</EditableParagraph>
         </Block>
     </StackLayout>,
 ];
