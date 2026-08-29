@@ -84,6 +84,18 @@ initializeVariableColors(variableDefinitions);
  * check your .env file and set VITE_SHOW_EXAMPLES=false.
  */
 
+import { solvingEquationsIntroBlocks } from "./sections/solvingEquationsIntro";
+import { keepingTheBalanceBlocks } from "./sections/keepingTheBalance";
+import { bracketsBothSidesBlocks } from "./sections/bracketsBothSides";
+import { productIsZeroBlocks } from "./sections/productIsZero";
+import { factorisingToSolveBlocks } from "./sections/factorisingToSolve";
+import { wrappingUpBlocks } from "./sections/wrappingUp";
+
 export const blocks: ReactElement[] = [
-    // Start adding your blocks here!
+    ...solvingEquationsIntroBlocks,
+    ...keepingTheBalanceBlocks,
+    ...bracketsBothSidesBlocks,
+    ...productIsZeroBlocks,
+    ...factorisingToSolveBlocks,
+    ...wrappingUpBlocks,
 ];
