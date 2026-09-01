@@ -370,28 +370,7 @@ export const bracketsBothSidesBlocks: ReactElement[] = [
 
     <StackLayout key="layout-brackets-invite" maxWidth="xl">
         <Block id="brackets-invite" padding="sm">
-            <EditableParagraph id="para-brackets-invite" blockId="brackets-invite">
-                Each side is worth something in its own right, and{" "}
-                <InlineLinkedHighlight
-                    id="link-brackets-left-side"
-                    varName="bracketsHighlight"
-                    highlightId="left-side"
-                    {...linkedHighlightPropsFromDefinition(getVariableInfo('bracketsHighlight'))}
-                >
-                    the teal side
-                </InlineLinkedHighlight>{" "}
-                grows twice as fast as{" "}
-                <InlineLinkedHighlight
-                    id="link-brackets-right-side"
-                    varName="bracketsHighlight"
-                    highlightId="right-side"
-                    {...linkedHighlightPropsFromDefinition(getVariableInfo('bracketsHighlight'))}
-                >
-                    the indigo side
-                </InlineLinkedHighlight>
-                , so somewhere they have to agree. Slide the marker along the number line until
-                the two towers stand exactly level, and watch the dots on the graph beside them.
-            </EditableParagraph>
+            <EditableParagraph id="para-brackets-invite" blockId="brackets-invite">Each side is worth something in its own right, and <InlineLinkedHighlight varName={"bracketsHighlight"} highlightId={"left-side"} color={"#62D0AD"} bgColor={"rgba(98, 208, 173, 0.2)"} id={"link-brackets-left-side"}>the teal side</InlineLinkedHighlight> grows twice as fast as <InlineLinkedHighlight varName={"bracketsHighlight"} highlightId={"right-side"} color={"#a855f7"} bgColor={"rgba(98, 208, 173, 0.2)"} id={"link-brackets-right-side"}>the indigo side</InlineLinkedHighlight>, so somewhere they have to agree. Slide the marker along the number line until the two towers stand exactly level, and watch the dots on the graph beside them.</EditableParagraph>
         </Block>
     </StackLayout>,
 
