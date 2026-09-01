@@ -298,28 +298,7 @@ export const productIsZeroBlocks: ReactElement[] = [
 
     <StackLayout key="layout-zero-product-invite" maxWidth="xl">
         <Block id="zero-product-invite" padding="sm">
-            <EditableParagraph id="para-zero-product-invite" blockId="zero-product-invite">
-                Two dials hold a number each, and their product sits between them. Turn{" "}
-                <InlineLinkedHighlight
-                    id="link-zero-product-dial-a"
-                    varName="zeroProductHighlight"
-                    highlightId="dial-a"
-                    {...linkedHighlightPropsFromDefinition(getVariableInfo('zeroProductHighlight'))}
-                >
-                    the teal dial
-                </InlineLinkedHighlight>{" "}
-                or{" "}
-                <InlineLinkedHighlight
-                    id="link-zero-product-dial-b"
-                    varName="zeroProductHighlight"
-                    highlightId="dial-b"
-                    {...linkedHighlightPropsFromDefinition(getVariableInfo('zeroProductHighlight'))}
-                >
-                    the indigo dial
-                </InlineLinkedHighlight>{" "}
-                and try to land that product exactly on zero, watching the faint trail of
-                everything you pass on the way.
-            </EditableParagraph>
+            <EditableParagraph id="para-zero-product-invite" blockId="zero-product-invite">Two dials hold a number each, and their product sits between them. Turn <InlineLinkedHighlight varName={"zeroProductHighlight"} highlightId={"dial-a"} color={"#62D0AD"} bgColor={"rgba(98, 208, 173, 0.2)"} id={"link-zero-product-dial-a"}>the teal dial</InlineLinkedHighlight> or <InlineLinkedHighlight varName={"zeroProductHighlight"} highlightId={"dial-b"} color={"#a855f7"} bgColor={"rgba(98, 208, 173, 0.2)"} id={"link-zero-product-dial-b"}>the indigo dial</InlineLinkedHighlight> and try to land that product exactly on zero, watching the faint trail of everything you pass on the way.</EditableParagraph>
         </Block>
     </StackLayout>,
 
