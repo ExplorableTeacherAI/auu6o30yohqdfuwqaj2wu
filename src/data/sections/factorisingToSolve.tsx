@@ -9,9 +9,10 @@ import {
     InlineClozeInput,
     InlineFeedback,
     InlineLinkedHighlight,
+    InlineTooltip,
     InteractionHintSequence,
 } from "@/components/atoms";
-import { Figure } from "@/components/molecules";
+import { Figure, FormulaBlock } from "@/components/molecules";
 import { useVar, useSetVar } from "@/stores";
 import {
     getVariableInfo,
@@ -45,6 +46,8 @@ const INK_QUIET = "#CBD5E1";
 const SQUARE_HUE = "#62D0AD";
 const STRIP_HUE = "#8E90F5";
 const UNIT_HUE = "#94A3B8";
+const SIDE_WIDTH_HUE = "#62CCF9";   // the across measurement, x + 2
+const SIDE_HEIGHT_HUE = "#F4A89A";  // the down measurement, x + 3
 
 const EASE = { transition: "opacity 150ms ease, stroke-width 150ms ease" } as const;
 
@@ -257,10 +260,10 @@ function TilesDrawing() {
             </g>
 
             {/* the side lengths the build has produced so far */}
-            <text x={BUILD.x + rectWidth / 2} y={BUILD.y - 14} textAnchor="middle" fontSize="13" fill={complete ? SQUARE_HUE : INK_STRUCTURE}>
+            <text x={BUILD.x + rectWidth / 2} y={BUILD.y - 14} textAnchor="middle" fontSize="13" fill={right > 0 ? SIDE_WIDTH_HUE : INK_STRUCTURE}>
                 {right > 0 ? `x + ${right}` : "x"}
             </text>
-            <text x={BUILD.x - 12} y={BUILD.y + rectHeight / 2 + 4} textAnchor="end" fontSize="13" fill={complete ? SQUARE_HUE : INK_STRUCTURE}>
+            <text x={BUILD.x - 12} y={BUILD.y + rectHeight / 2 + 4} textAnchor="end" fontSize="13" fill={bottom > 0 ? SIDE_HEIGHT_HUE : INK_STRUCTURE}>
                 {bottom > 0 ? `x + ${bottom}` : "x"}
             </text>
 
@@ -290,8 +293,15 @@ function TilesDrawing() {
 
             {/* what the build is telling us */}
             {complete ? (
-                <text x={260} y={384} textAnchor="middle" fontSize="14" fill={SQUARE_HUE}>
-                    (x + 2)(x + 3) = x² + 5x + 6
+                <text x={260} y={384} textAnchor="middle" fontSize="14" fill={INK}>
+                    <tspan fill={SIDE_WIDTH_HUE}>(x + 2)</tspan>
+                    <tspan fill={SIDE_HEIGHT_HUE}>(x + 3)</tspan>
+                    <tspan fill={INK}> = </tspan>
+                    <tspan fill={SQUARE_HUE}>x²</tspan>
+                    <tspan fill={INK}> + </tspan>
+                    <tspan fill={STRIP_HUE}>5x</tspan>
+                    <tspan fill={INK}> + </tspan>
+                    <tspan fill={UNIT_HUE}>6</tspan>
                 </text>
             ) : placedStrips === TOTAL_STRIPS && capacity < TOTAL_UNITS ? (
                 <text x={260} y={384} textAnchor="middle" fontSize="12" fill={INK}>
@@ -303,6 +313,31 @@ function TilesDrawing() {
                 </text>
             )}
         </svg>
+    );
+}
+
+// Writing the finished rectangle down as two brackets. The dropdown lives inside
+// the formula, so the student completes the factorising in the notation itself.
+function FactorisedFormula() {
+    return (
+        <FormulaBlock
+            latex={"\\clr{square}{x^2} + \\clr{strip}{5x} + \\clr{unit}{6} = (x + \\choice{answer_factor_first})(x + \\clr{height}{3})"}
+            colorMap={{
+                square: SQUARE_HUE,
+                strip: STRIP_HUE,
+                unit: UNIT_HUE,
+                height: SIDE_HEIGHT_HUE,
+            }}
+            clozeChoices={{
+                answer_factor_first: {
+                    correctAnswer: "2",
+                    options: ["1", "2", "5"],
+                    placeholder: "?",
+                    color: "#AC8BF9",
+                    bgColor: "rgba(172, 139, 249, 0.18)",
+                },
+            }}
+        />
     );
 }
 
@@ -352,8 +387,16 @@ export const factorisingToSolveBlocks: ReactElement[] = [
                     latex="\clr{square}{x^2} + \clr{strip}{5x} + \clr{unit}{6} = 0"
                     colorMap={{ square: "#62D0AD", strip: "#8E90F5", unit: "#94A3B8" }}
                 />. To use the zero rule we
-                need two brackets multiplied together, so we hunt for two numbers that multiply
-                to 6 and add to 5.
+                need two brackets multiplied together, which is what{" "}
+                <InlineTooltip
+                    id="tooltip-factorising-factorise"
+                    tooltip="Factorising means rewriting an expression as things multiplied together, instead of added."
+                    color="#64748B"
+                    bgColor="rgba(100, 116, 139, 0.14)"
+                >
+                    factorising
+                </InlineTooltip>{" "}
+                does. So we hunt for two numbers that multiply to 6 and add to 5.
             </EditableParagraph>
         </Block>
     </StackLayout>,
@@ -391,14 +434,20 @@ export const factorisingToSolveBlocks: ReactElement[] = [
         </Block>
     </StackLayout>,
 
+    <StackLayout key="layout-factorising-brackets-formula" maxWidth="xl">
+        <Block id="factorising-brackets-formula" padding="md">
+            <FactorisedFormula />
+        </Block>
+    </StackLayout>,
+
     <StackLayout key="layout-factorising-solutions" maxWidth="xl">
         <Block id="factorising-solutions" padding="sm">
             <EditableParagraph id="para-factorising-solutions" blockId="factorising-solutions">
                 Only 2 and 3 close the rectangle, and it measures{" "}
-                <InlineFormula latex="\clr{side}{x + 2}" colorMap={{ side: "#62D0AD" }} /> by{" "}
-                <InlineFormula latex="\clr{side}{x + 3}" colorMap={{ side: "#62D0AD" }} />. The brackets hold +2 and +3, yet
-                the solutions are <InlineFormula latex="\clr{side}{x = -2}" colorMap={{ side: "#62D0AD" }} /> and{" "}
-                <InlineFormula latex="\clr{side}{x = -3}" colorMap={{ side: "#62D0AD" }} />, because each
+                <InlineFormula latex="\clr{width}{x + 2}" colorMap={{ width: "#62CCF9" }} /> across by{" "}
+                <InlineFormula latex="\clr{height}{x + 3}" colorMap={{ height: "#F4A89A" }} /> down. The brackets hold +2 and +3, yet
+                the solutions are <InlineFormula latex="\clr{width}{x = -2}" colorMap={{ width: "#62CCF9" }} /> and{" "}
+                <InlineFormula latex="\clr{height}{x = -3}" colorMap={{ height: "#F4A89A" }} />, because each
                 bracket has to end up
                 empty.
             </EditableParagraph>
@@ -459,7 +508,7 @@ export const factorisingToSolveBlocks: ReactElement[] = [
                     latex="\clr{square}{x^2} + \clr{strip}{7x} + \clr{unit}{12} = 0"
                     colorMap={{ square: "#62D0AD", strip: "#8E90F5", unit: "#94A3B8" }}
                 />:
-                one solution is <InlineFormula latex="\clr{side}{x = -3}" colorMap={{ side: "#62D0AD" }} /> and the other
+                one solution is <InlineFormula latex="\clr{height}{x = -3}" colorMap={{ height: "#F4A89A" }} /> and the other
                 is{" "}
                 <InlineFeedback
                     varName="answer_factor_solution"

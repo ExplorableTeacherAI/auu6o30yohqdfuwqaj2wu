@@ -134,7 +134,8 @@ export const variableDefinitions: Record<string, VariableDefinition> = {
         placeholder: '???',
         correctAnswer: 'tip',
         options: ['tip', 'stay level', 'empty'],
-        color: '#8E90F5',
+        color: '#AC8BF9',
+        bgColor: 'rgba(172, 139, 249, 0.18)',
     },
     // ─────────────────────────────────────────
     // BRACKETS AND x ON BOTH SIDES — 2(x + 3) = x + 11
@@ -164,7 +165,8 @@ export const variableDefinitions: Record<string, VariableDefinition> = {
         description: 'Solution of 3(x + 2) = x + 14',
         placeholder: '???',
         correctAnswer: '4',
-        color: '#8E90F5',
+        color: '#AC8BF9',
+        bgColor: 'rgba(172, 139, 249, 0.18)',
     },
     answer_brackets_cross: {
         defaultValue: '',
@@ -174,7 +176,8 @@ export const variableDefinitions: Record<string, VariableDefinition> = {
         placeholder: '???',
         correctAnswer: 'cross',
         options: ['cross', 'are steepest', 'reach zero'],
-        color: '#8E90F5',
+        color: '#AC8BF9',
+        bgColor: 'rgba(172, 139, 249, 0.18)',
     },
     // ─────────────────────────────────────────
     // WHEN A PRODUCT IS ZERO — (x + 2)(x + 3)
@@ -207,6 +210,16 @@ export const variableDefinitions: Record<string, VariableDefinition> = {
         color: '#62D0AD',
         bgColor: 'rgba(98, 208, 173, 0.2)',
     },
+    zeroProductValue: {
+        defaultValue: 12,
+        type: 'number',
+        label: 'Product of the two dials',
+        description: 'Read-only product shown in the dials formula',
+        min: -36,
+        max: 36,
+        step: 0.25,
+        color: '#334155',
+    },
     answer_zero_product_when: {
         defaultValue: '',
         type: 'select',
@@ -215,7 +228,8 @@ export const variableDefinitions: Record<string, VariableDefinition> = {
         placeholder: '???',
         correctAnswer: 'one of the numbers is zero',
         options: ['one of the numbers is zero', 'both numbers are equal', 'the numbers are opposites'],
-        color: '#8E90F5',
+        color: '#AC8BF9',
+        bgColor: 'rgba(172, 139, 249, 0.18)',
     },
     answer_zero_product_root: {
         defaultValue: '',
@@ -224,7 +238,8 @@ export const variableDefinitions: Record<string, VariableDefinition> = {
         description: 'Second solution of (x - 4)(x + 1) = 0',
         placeholder: '???',
         correctAnswer: '-1',
-        color: '#8E90F5',
+        color: '#AC8BF9',
+        bgColor: 'rgba(172, 139, 249, 0.18)',
     },
     // ─────────────────────────────────────────
     // FACTORISING TO SOLVE — tiles for x^2 + 5x + 6
@@ -275,7 +290,19 @@ export const variableDefinitions: Record<string, VariableDefinition> = {
         placeholder: '???',
         correctAnswer: '2 and 3',
         options: ['2 and 3', '1 and 4', '5 and 0'],
-        color: '#8E90F5',
+        color: '#AC8BF9',
+        bgColor: 'rgba(172, 139, 249, 0.18)',
+    },
+    answer_factor_first: {
+        defaultValue: '',
+        type: 'select',
+        label: 'First bracket number',
+        description: 'The number that completes (x + ?)(x + 3) for x^2 + 5x + 6',
+        placeholder: '?',
+        correctAnswer: '2',
+        options: ['1', '2', '5'],
+        color: '#AC8BF9',
+        bgColor: 'rgba(172, 139, 249, 0.18)',
     },
     answer_factor_solution: {
         defaultValue: '',
@@ -284,7 +311,8 @@ export const variableDefinitions: Record<string, VariableDefinition> = {
         description: 'Second solution of x^2 + 7x + 12 = 0',
         placeholder: '???',
         correctAnswer: ['-4', 'x = -4'],
-        color: '#8E90F5',
+        color: '#AC8BF9',
+        bgColor: 'rgba(172, 139, 249, 0.18)',
     },
     answer_balance_solve: {
         defaultValue: '',
@@ -293,7 +321,8 @@ export const variableDefinitions: Record<string, VariableDefinition> = {
         description: 'Weight of one bag when 5 bags and 3 blocks balance 38 blocks',
         placeholder: '???',
         correctAnswer: '7',
-        color: '#8E90F5',
+        color: '#AC8BF9',
+        bgColor: 'rgba(172, 139, 249, 0.18)',
     },
 
     // Uncomment and modify these examples for your lesson:

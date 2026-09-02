@@ -9,9 +9,10 @@ import {
     InlineClozeInput,
     InlineFeedback,
     InlineLinkedHighlight,
+    InlineTooltip,
     InteractionHintSequence,
 } from "@/components/atoms";
-import { Figure } from "@/components/molecules";
+import { Figure, FormulaBlock } from "@/components/molecules";
 import { useVar, useSetVar } from "@/stores";
 import { clamp, useSpring } from "@/lib/motion";
 import {
@@ -19,6 +20,7 @@ import {
     clozePropsFromDefinition,
     choicePropsFromDefinition,
     linkedHighlightPropsFromDefinition,
+    scrubVarsFromDefinitions,
 } from "../variables";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -351,6 +353,29 @@ function BalanceScalesDrawing() {
     );
 }
 
+// The equation the scales are showing, with every number draggable. Scrubbing a
+// number here lifts the same items off the pan, and lifting items off the pan
+// rewrites the number — one store, two ways in.
+function BalanceEquationFormula() {
+    const bags = useVar<number>("balanceLeftBags", START.bags);
+    const leftUnits = useVar<number>("balanceLeftUnits", START.leftUnits);
+    const rightUnits = useVar<number>("balanceRightUnits", START.rightUnits);
+    const leftWeight = bags * BAG_WEIGHT + leftUnits;
+    const relation = leftWeight === rightUnits ? "=" : leftWeight > rightUnits ? ">" : "<";
+
+    return (
+        <FormulaBlock
+            latex={`\\scrub{balanceLeftBags}\\clr{bag}{x} + \\scrub{balanceLeftUnits} \\;${relation}\\; \\scrub{balanceRightUnits}`}
+            colorMap={{ bag: ACCENT }}
+            variables={scrubVarsFromDefinitions([
+                "balanceLeftBags",
+                "balanceLeftUnits",
+                "balanceRightUnits",
+            ])}
+        />
+    );
+}
+
 function BalanceScalesFigure() {
     const setVar = useSetVar();
     return (
@@ -431,9 +456,15 @@ export const keepingTheBalanceBlocks: ReactElement[] = [
                 <InlineFormula
                     latex="\clr{bag}{3x} = \clr{block}{15}"
                     colorMap={{ bag: "#62D0AD", block: "#64748B" }}
-                /> is left, still balanced. From
-                there, keep stripping both pans until a single bag stands alone.
+                /> is left, still balanced. The line below is what the pans are saying right now,
+                and its numbers can be dragged straight from the equation.
             </EditableParagraph>
+        </Block>
+    </StackLayout>,
+
+    <StackLayout key="layout-balance-live-equation" maxWidth="xl">
+        <Block id="balance-live-equation" padding="md">
+            <BalanceEquationFormula />
         </Block>
     </StackLayout>,
 
@@ -451,20 +482,29 @@ export const keepingTheBalanceBlocks: ReactElement[] = [
                     colorMap={{ bag: "#62D0AD", block: "#64748B" }}
                 />.
                 Nothing clever happened: every single move was done to both pans at once. That one
-                rule solves every linear equation you will meet.
+                rule solves every{" "}
+                <InlineTooltip
+                    id="tooltip-balance-linear"
+                    tooltip="An equation whose unknown appears on its own, never squared, so one balanced move at a time is enough to solve it."
+                    color="#64748B"
+                    bgColor="rgba(100, 116, 139, 0.14)"
+                >
+                    linear equation
+                </InlineTooltip>{" "}
+                you will meet.
             </EditableParagraph>
         </Block>
     </StackLayout>,
 
     <StackLayout key="layout-balance-question-tip" maxWidth="xl">
         <Block id="balance-question-tip" padding="md">
-            <EditableParagraph id="para-balance-question-tip" blockId="balance-question-tip">Lifting four blocks off the left pan and leaving the right pan untouched makes the scales <InlineFeedback varName={"answer_balance_tip"} correctValue={"tip"} caseSensitive={false} position={"terminal"} successMessage={"— yes, the left side is suddenly lighter, so the beam drops on the right"} failureMessage={"— have a look at the scales again"} hint={"Two sides stay equal only while they lose the same amount"} reviewLabel={"Review this concept"} visualizationHint={{"blockId": "balance-visual", "hintKey": "feedback-balance-one-sided", "label": "Discover it yourself", "steps": [{"gesture": "drag", "label": "Drag all four loose blocks off the left pan and watch the beam drop on the right", "position": {"x": "19%", "y": "40%"}, "completionVar": "balanceLeftUnits", "completionValue": 0, "completionTolerance": 0.5}, {"gesture": "drag", "label": "Now take four blocks off the right pan too — the beam comes back level", "position": {"x": "80%", "y": "44%"}, "completionVar": "balanceRightUnits", "completionValue": 15, "completionTolerance": 0.5}], "resetVars": {"balanceLeftBags": 3, "balanceLeftUnits": 4, "balanceRightUnits": 19}}}><InlineClozeChoice varName={"answer_balance_tip"} correctAnswer={"tip"} options={["tip", "stay level", "empty"]} placeholder={"???"} color={"#E53935"} bgColor={"rgba(59, 130, 246, 0.35)"} id={"choice-1788024370369-4l9i6"} /></InlineFeedback>.</EditableParagraph>
+            <EditableParagraph id="para-balance-question-tip" blockId="balance-question-tip">Lifting four blocks off the left pan and leaving the right pan untouched makes the scales <InlineFeedback varName={"answer_balance_tip"} correctValue={"tip"} caseSensitive={false} position={"terminal"} successMessage={"— yes, the left side is suddenly lighter, so the beam drops on the right"} failureMessage={"— have a look at the scales again"} hint={"Two sides stay equal only while they lose the same amount"} reviewLabel={"Review this concept"} visualizationHint={{"blockId": "balance-visual", "hintKey": "feedback-balance-one-sided", "label": "Discover it yourself", "steps": [{"gesture": "drag", "label": "Drag all four loose blocks off the left pan and watch the beam drop on the right", "position": {"x": "19%", "y": "40%"}, "completionVar": "balanceLeftUnits", "completionValue": 0, "completionTolerance": 0.5}, {"gesture": "drag", "label": "Now take four blocks off the right pan too — the beam comes back level", "position": {"x": "80%", "y": "44%"}, "completionVar": "balanceRightUnits", "completionValue": 15, "completionTolerance": 0.5}], "resetVars": {"balanceLeftBags": 3, "balanceLeftUnits": 4, "balanceRightUnits": 19}}}><InlineClozeChoice varName={"answer_balance_tip"} correctAnswer={"tip"} options={["tip", "stay level", "empty"]} {...choicePropsFromDefinition(getVariableInfo('answer_balance_tip'))} id={"choice-balance-tip"} /></InlineFeedback>.</EditableParagraph>
         </Block>
     </StackLayout>,
 
     <StackLayout key="layout-balance-question-solve" maxWidth="xl">
         <Block id="balance-question-solve" padding="md">
-            <EditableParagraph id="para-balance-question-solve" blockId="balance-question-solve">A different set of scales balances 5 bags and 3 blocks against 38 blocks, so one bag is worth <InlineFeedback varName={"answer_balance_solve"} correctValue={"7"} caseSensitive={false} position={"terminal"} successMessage={"— exactly, 3 blocks off both pans leaves 5 bags against 35, and 35 shared between 5 bags is 7 each"} failureMessage={"— not yet"} hint={"Clear the 3 loose blocks from both pans first, then share what is left between the five bags"} reviewLabel={"Review this concept"}><InlineClozeInput varName={"answer_balance_solve"} correctAnswer={"7"} placeholder={"???"} color={"#FDD835"} bgColor={"rgba(59, 130, 246, 0.35)"} caseSensitive={false} id={"cloze-1788024370369-xcazp"} /></InlineFeedback> blocks.</EditableParagraph>
+            <EditableParagraph id="para-balance-question-solve" blockId="balance-question-solve">A different set of scales balances 5 bags and 3 blocks against 38 blocks, so one bag is worth <InlineFeedback varName={"answer_balance_solve"} correctValue={"7"} caseSensitive={false} position={"terminal"} successMessage={"— exactly, 3 blocks off both pans leaves 5 bags against 35, and 35 shared between 5 bags is 7 each"} failureMessage={"— not yet"} hint={"Clear the 3 loose blocks from both pans first, then share what is left between the five bags"} reviewLabel={"Review this concept"}><InlineClozeInput varName={"answer_balance_solve"} correctAnswer={"7"} {...clozePropsFromDefinition(getVariableInfo('answer_balance_solve'))} id={"cloze-balance-solve"} /></InlineFeedback> blocks.</EditableParagraph>
         </Block>
     </StackLayout>,
 ];

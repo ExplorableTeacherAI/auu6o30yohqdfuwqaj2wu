@@ -9,16 +9,18 @@ import {
     InlineClozeInput,
     InlineFeedback,
     InlineLinkedHighlight,
+    InlineTooltip,
+    InlineTrigger,
     InteractionHintSequence,
 } from "@/components/atoms";
-import { Figure } from "@/components/molecules";
+import { Figure, FormulaBlock } from "@/components/molecules";
 import { useVar, useSetVar } from "@/stores";
 import { clamp } from "@/lib/motion";
 import {
     getVariableInfo,
     clozePropsFromDefinition,
     choicePropsFromDefinition,
-    linkedHighlightPropsFromDefinition,
+    scrubVarsFromDefinitions,
 } from "../variables";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -293,6 +295,22 @@ function LinesDrawing() {
     );
 }
 
+// Both sides of the equation with the same draggable x inside them. Scrubbing it
+// moves the towers and the two dots at once; the sign between them tells the
+// truth about the current value.
+function BracketsEquationFormula() {
+    const x = useVar<number>("bracketsX", DEFAULT_X);
+    const relation = leftValue(x) === rightValue(x) ? "=" : leftValue(x) > rightValue(x) ? ">" : "<";
+
+    return (
+        <FormulaBlock
+            latex={`\\clr{left}{2(\\scrub{bracketsX} + 3)} \\;${relation}\\; \\clr{right}{\\scrub{bracketsX} + 11}`}
+            colorMap={{ left: LEFT_HUE, right: RIGHT_HUE }}
+            variables={scrubVarsFromDefinitions(["bracketsX"])}
+        />
+    );
+}
+
 function TowersFigure() {
     const setVar = useSetVar();
     return (
@@ -365,8 +383,16 @@ export const bracketsBothSidesBlocks: ReactElement[] = [
                 place, like <InlineFormula
                     latex="\clr{left}{2(x + 3)} = \clr{right}{x + 11}"
                     colorMap={{ left: "#62D0AD", right: "#8E90F5" }}
-                />. Expand the
-                bracket and the left side becomes <InlineFormula latex="\clr{left}{2x + 6}" colorMap={{ left: "#62D0AD" }} />,
+                />.{" "}
+                <InlineTooltip
+                    id="tooltip-brackets-expand"
+                    tooltip="Expanding means multiplying everything inside the bracket by the number outside it."
+                    color="#64748B"
+                    bgColor="rgba(100, 116, 139, 0.14)"
+                >
+                    Expanding
+                </InlineTooltip>{" "}
+                the bracket turns the left side into <InlineFormula latex="\clr{left}{2x + 6}" colorMap={{ left: "#62D0AD" }} />,
                 so the equation now reads{" "}
                 <InlineFormula
                     latex="\clr{left}{2x + 6} = \clr{right}{x + 11}"
@@ -378,7 +404,13 @@ export const bracketsBothSidesBlocks: ReactElement[] = [
 
     <StackLayout key="layout-brackets-invite" maxWidth="xl">
         <Block id="brackets-invite" padding="sm">
-            <EditableParagraph id="para-brackets-invite" blockId="brackets-invite">Each side is worth something in its own right, and <InlineLinkedHighlight varName={"bracketsHighlight"} highlightId={"left-side"} color={"#62D0AD"} bgColor={"rgba(98, 208, 173, 0.2)"} id={"link-brackets-left-side"}>the teal side</InlineLinkedHighlight> grows twice as fast as <InlineLinkedHighlight varName={"bracketsHighlight"} highlightId={"right-side"} color={"#8E90F5"} bgColor={"rgba(142, 144, 245, 0.2)"} id={"link-brackets-right-side"}>the indigo side</InlineLinkedHighlight>, so somewhere they have to agree. Slide the marker along the number line until the two towers stand exactly level, and watch the dots on the graph beside them.</EditableParagraph>
+            <EditableParagraph id="para-brackets-invite" blockId="brackets-invite">Each side is worth something in its own right, and <InlineLinkedHighlight varName={"bracketsHighlight"} highlightId={"left-side"} color={"#62D0AD"} bgColor={"rgba(98, 208, 173, 0.2)"} id={"link-brackets-left-side"}>the teal side</InlineLinkedHighlight> grows twice as fast as <InlineLinkedHighlight varName={"bracketsHighlight"} highlightId={"right-side"} color={"#8E90F5"} bgColor={"rgba(142, 144, 245, 0.2)"} id={"link-brackets-right-side"}>the indigo side</InlineLinkedHighlight>, so somewhere they have to agree. Drag the x inside the equation below, or slide the marker along the number line, until the two towers stand exactly level and the dots on the graph meet.</EditableParagraph>
+        </Block>
+    </StackLayout>,
+
+    <StackLayout key="layout-brackets-live-equation" maxWidth="xl">
+        <Block id="brackets-live-equation" padding="md">
+            <BracketsEquationFormula />
         </Block>
     </StackLayout>,
 
@@ -394,8 +426,17 @@ export const bracketsBothSidesBlocks: ReactElement[] = [
     <StackLayout key="layout-brackets-reflection" maxWidth="xl">
         <Block id="brackets-reflection" padding="sm">
             <EditableParagraph id="para-brackets-reflection" blockId="brackets-reflection">
-                They level off at{" "}
-                <InlineFormula latex="\clr{marker}{x = 5}" colorMap={{ marker: "#334155" }} />, both
+                They{" "}
+                <InlineTrigger
+                    id="trigger-brackets-level"
+                    varName="bracketsX"
+                    value={5}
+                    color="#334155"
+                    bgColor="rgba(51, 65, 85, 0.12)"
+                >
+                    level off
+                </InlineTrigger>{" "}
+                at <InlineFormula latex="\clr{marker}{x = 5}" colorMap={{ marker: "#334155" }} />, both
                 sides worth
                 16, and the graph shows why there is only one answer: two straight lines of
                 different steepness cross exactly once. Taking one{" "}
@@ -408,13 +449,13 @@ export const bracketsBothSidesBlocks: ReactElement[] = [
 
     <StackLayout key="layout-brackets-question-solve" maxWidth="xl">
         <Block id="brackets-question-solve" padding="md">
-            <EditableParagraph id="para-brackets-question-solve" blockId="brackets-question-solve">Tidy up <InlineFormula latex={"\\clr{left}{3(x + 2)} = \\clr{right}{x + 14}"} colorMap={{ left: "#62D0AD", right: "#8E90F5" }} color={"#334155"} id={"inlineFormula-1788024370374-np53a"} /> the same way, and <InlineFormula latex={"\\clr{marker}{x}"} colorMap={{ marker: "#334155" }} color={"#334155"} id={"inlineFormula-1788024370374-rwhrm"} /> turns out to be <InlineFeedback varName={"answer_brackets_solve"} correctValue={"4"} caseSensitive={false} position={"terminal"} successMessage={"— spot on, expanding gives 3x + 6 = x + 14, and clearing one x and the 6 leaves 2x = 8"} failureMessage={"— not this time"} hint={"Expand the bracket first, then take one x from each side, then take 6 from each side"} reviewLabel={"Review this concept"}><InlineClozeInput varName={"answer_brackets_solve"} correctAnswer={"4"} placeholder={"???"} color={"#E53935"} bgColor={"rgba(59, 130, 246, 0.35)"} caseSensitive={false} id={"cloze-1788024370374-z2al9"} /></InlineFeedback>.</EditableParagraph>
+            <EditableParagraph id="para-brackets-question-solve" blockId="brackets-question-solve">Tidy up <InlineFormula latex={"\\clr{left}{3(x + 2)} = \\clr{right}{x + 14}"} colorMap={{ left: "#62D0AD", right: "#8E90F5" }} color={"#334155"} id={"inlineFormula-1788024370374-np53a"} /> the same way, and <InlineFormula latex={"\\clr{marker}{x}"} colorMap={{ marker: "#334155" }} color={"#334155"} id={"inlineFormula-1788024370374-rwhrm"} /> turns out to be <InlineFeedback varName={"answer_brackets_solve"} correctValue={"4"} caseSensitive={false} position={"terminal"} successMessage={"— spot on, expanding gives 3x + 6 = x + 14, and clearing one x and the 6 leaves 2x = 8"} failureMessage={"— not this time"} hint={"Expand the bracket first, then take one x from each side, then take 6 from each side"} reviewLabel={"Review this concept"}><InlineClozeInput varName={"answer_brackets_solve"} correctAnswer={"4"} {...clozePropsFromDefinition(getVariableInfo('answer_brackets_solve'))} id={"cloze-brackets-solve"} /></InlineFeedback>.</EditableParagraph>
         </Block>
     </StackLayout>,
 
     <StackLayout key="layout-brackets-question-cross" maxWidth="xl">
         <Block id="brackets-question-cross" padding="md">
-            <EditableParagraph id="para-brackets-question-cross" blockId="brackets-question-cross">On a graph, the solution of an equation sits at the point where the two lines <InlineFeedback varName={"answer_brackets_cross"} correctValue={"cross"} caseSensitive={false} position={"terminal"} successMessage={"— exactly, crossing means both sides are worth the same at that value of x"} failureMessage={"— worth another look"} hint={"Equal sides means equal heights, so the two dots have to be in the same place"} reviewLabel={"Review this concept"} visualizationHint={{"blockId": "brackets-visual", "hintKey": "feedback-brackets-cross", "label": "Discover it yourself", "steps": [{"gesture": "drag-horizontal", "label": "Slide the marker out to 8 — the teal tower shoots past the indigo one", "position": {"x": "29%", "y": "86%"}, "completionVar": "bracketsX", "completionValue": 8, "completionTolerance": 0.6}, {"gesture": "drag-horizontal", "label": "Now bring it back to 5, where the towers level and the two dots meet", "position": {"x": "60%", "y": "86%"}, "completionVar": "bracketsX", "completionValue": 5, "completionTolerance": 0.3}], "resetVars": {"bracketsX": 2, "bracketsHighlight": ""}}}><InlineClozeChoice varName={"answer_brackets_cross"} correctAnswer={"cross"} options={["cross", "are steepest", "reach zero"]} placeholder={"???"} color={"#E53935"} bgColor={"rgba(59, 130, 246, 0.35)"} id={"choice-1788024370375-gzrnp"} /></InlineFeedback>.</EditableParagraph>
+            <EditableParagraph id="para-brackets-question-cross" blockId="brackets-question-cross">On a graph, the solution of an equation sits at the point where the two lines <InlineFeedback varName={"answer_brackets_cross"} correctValue={"cross"} caseSensitive={false} position={"terminal"} successMessage={"— exactly, crossing means both sides are worth the same at that value of x"} failureMessage={"— worth another look"} hint={"Equal sides means equal heights, so the two dots have to be in the same place"} reviewLabel={"Review this concept"} visualizationHint={{"blockId": "brackets-visual", "hintKey": "feedback-brackets-cross", "label": "Discover it yourself", "steps": [{"gesture": "drag-horizontal", "label": "Slide the marker out to 8 — the teal tower shoots past the indigo one", "position": {"x": "29%", "y": "86%"}, "completionVar": "bracketsX", "completionValue": 8, "completionTolerance": 0.6}, {"gesture": "drag-horizontal", "label": "Now bring it back to 5, where the towers level and the two dots meet", "position": {"x": "60%", "y": "86%"}, "completionVar": "bracketsX", "completionValue": 5, "completionTolerance": 0.3}], "resetVars": {"bracketsX": 2, "bracketsHighlight": ""}}}><InlineClozeChoice varName={"answer_brackets_cross"} correctAnswer={"cross"} options={["cross", "are steepest", "reach zero"]} {...choicePropsFromDefinition(getVariableInfo('answer_brackets_cross'))} id={"choice-brackets-cross"} /></InlineFeedback>.</EditableParagraph>
         </Block>
     </StackLayout>,
 ];

@@ -9,16 +9,18 @@ import {
     InlineClozeInput,
     InlineFeedback,
     InlineLinkedHighlight,
+    InlineTooltip,
+    InlineTrigger,
     InteractionHintSequence,
 } from "@/components/atoms";
-import { Figure } from "@/components/molecules";
+import { Figure, FormulaBlock } from "@/components/molecules";
 import { useVar, useSetVar } from "@/stores";
 import { clamp } from "@/lib/motion";
 import {
     getVariableInfo,
     clozePropsFromDefinition,
     choicePropsFromDefinition,
-    linkedHighlightPropsFromDefinition,
+    scrubVarsFromDefinitions,
 } from "../variables";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -43,6 +45,8 @@ const HUE_B = "#8E90F5";
 const ZERO_HUE = "#F7B23B";
 
 const fmt = (value: number) => value.toFixed(1);
+// One formatter for the product wherever it appears: figure, formula, prose.
+const fmtProduct = (value: number) => String(Number(value.toFixed(2)));
 const EASE = { transition: "opacity 150ms ease, stroke-width 150ms ease" } as const;
 
 const valueToAngle = (value: number) =>
@@ -74,6 +78,10 @@ function DialsDrawing() {
 
     const productValue = valueA * valueB;
     const isZero = productValue === 0;
+
+    useEffect(() => {
+        setVar("zeroProductValue", productValue);
+    }, [productValue, setVar]);
 
     useEffect(() => {
         setTrail((previous) => {
@@ -205,7 +213,7 @@ function DialsDrawing() {
                 fill={isZero ? ZERO_HUE : INK}
                 style={{ fontVariantNumeric: "tabular-nums" }}
             >
-                {`= ${fmt(productValue)}`}
+                {`= ${fmtProduct(productValue)}`}
             </text>
             {isZero && (
                 <text x={VIEW_W / 2} y={212} textAnchor="middle" fontSize="11" fill={ZERO_HUE}>
@@ -250,6 +258,20 @@ function DialsDrawing() {
     );
 }
 
+// The same product as an equation. Dragging either number turns the matching
+// dial, so the sentence, the formula and the dials never disagree.
+function ZeroProductFormula() {
+    return (
+        <FormulaBlock
+            latex={"\\scrub{zeroProductDialA} \\times \\scrub{zeroProductDialB} = \\val{zeroProductValue}"}
+            variables={{
+                ...scrubVarsFromDefinitions(["zeroProductDialA", "zeroProductDialB"]),
+                zeroProductValue: { color: INK, formatValue: fmtProduct },
+            }}
+        />
+    );
+}
+
 function DialsFigure() {
     const setVar = useSetVar();
     return (
@@ -290,8 +312,16 @@ export const productIsZeroBlocks: ReactElement[] = [
     <StackLayout key="layout-zero-product-rule" maxWidth="xl">
         <Block id="zero-product-rule" padding="sm">
             <EditableParagraph id="para-zero-product-rule" blockId="zero-product-rule">
-                Here is a fact so plain it feels like a trick: if two numbers multiply to give 0,
-                at least one of them has to be 0. Multiply 7 by a thousandth and the answer is
+                Here is a fact so plain it feels like a trick: if two numbers have a{" "}
+                <InlineTooltip
+                    id="tooltip-zero-product-product"
+                    tooltip="The product is the answer you get when numbers are multiplied together."
+                    color="#64748B"
+                    bgColor="rgba(100, 116, 139, 0.14)"
+                >
+                    product
+                </InlineTooltip>{" "}
+                of 0, at least one of them has to be 0. Multiply 7 by a thousandth and the answer is
                 tiny, but it is still not zero.
             </EditableParagraph>
         </Block>
@@ -300,6 +330,12 @@ export const productIsZeroBlocks: ReactElement[] = [
     <StackLayout key="layout-zero-product-invite" maxWidth="xl">
         <Block id="zero-product-invite" padding="sm">
             <EditableParagraph id="para-zero-product-invite" blockId="zero-product-invite">Two dials hold a number each, and their product sits between them. Turn <InlineLinkedHighlight varName={"zeroProductHighlight"} highlightId={"dial-a"} color={"#62D0AD"} bgColor={"rgba(98, 208, 173, 0.2)"} id={"link-zero-product-dial-a"}>the teal dial</InlineLinkedHighlight> or <InlineLinkedHighlight varName={"zeroProductHighlight"} highlightId={"dial-b"} color={"#8E90F5"} bgColor={"rgba(142, 144, 245, 0.2)"} id={"link-zero-product-dial-b"}>the indigo dial</InlineLinkedHighlight> and try to land that product exactly on zero, watching the faint trail of everything you pass on the way.</EditableParagraph>
+        </Block>
+    </StackLayout>,
+
+    <StackLayout key="layout-zero-product-live-equation" maxWidth="xl">
+        <Block id="zero-product-live-equation" padding="md">
+            <ZeroProductFormula />
         </Block>
     </StackLayout>,
 
@@ -312,8 +348,17 @@ export const productIsZeroBlocks: ReactElement[] = [
     <StackLayout key="layout-zero-product-reflection" maxWidth="xl">
         <Block id="zero-product-reflection" padding="sm">
             <EditableParagraph id="para-zero-product-reflection" blockId="zero-product-reflection">
-                Small numbers get the product close, but only a zero on one of the dials ever
-                lands it. So <InlineFormula
+                Small numbers get the product close, but only{" "}
+                <InlineTrigger
+                    id="trigger-zero-product-dial-a"
+                    varName="zeroProductDialA"
+                    value={0}
+                    color="#F7B23B"
+                    bgColor="rgba(247, 178, 59, 0.18)"
+                >
+                    a zero on one of the dials
+                </InlineTrigger>{" "}
+                ever lands it. So <InlineFormula
                     latex="\clr{first}{(x + 2)}\clr{second}{(x + 3)} = \clr{zero}{0}"
                     colorMap={{ first: "#62D0AD", second: "#8E90F5", zero: "#F7B23B" }}
                 /> forces one
