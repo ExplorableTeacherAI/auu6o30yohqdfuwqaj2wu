@@ -87,22 +87,11 @@
       }
     },
     {
-      "id": "layout-balance-setup",
-      "type": "stack",
-      "columns": [
-        [
-          "balance-setup"
-        ]
-      ],
-      "props": {
-        "maxWidth": "xl"
-      }
-    },
-    {
       "id": "layout-balance-worked-step",
       "type": "split",
       "columns": [
         [
+          "balance-setup",
           "balance-worked-step"
         ],
         [
