@@ -7,8 +7,8 @@
     "balance-heading",
     "balance-setup",
     "balance-worked-step",
-    "balance-visual",
     "balance-reflection",
+    "balance-visual",
     "balance-question-tip",
     "balance-question-solve",
     "brackets-heading",
@@ -92,7 +92,8 @@
       "columns": [
         [
           "balance-setup",
-          "balance-worked-step"
+          "balance-worked-step",
+          "balance-reflection"
         ],
         [
           "balance-visual"
@@ -103,18 +104,6 @@
         "gap": "lg",
         "reverse": false,
         "align": "start"
-      }
-    },
-    {
-      "id": "layout-balance-reflection",
-      "type": "stack",
-      "columns": [
-        [
-          "balance-reflection"
-        ]
-      ],
-      "props": {
-        "maxWidth": "xl"
       }
     },
     {
