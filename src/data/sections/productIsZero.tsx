@@ -40,6 +40,7 @@ const INK_STRUCTURE = "#64748B";
 const INK_QUIET = "#CBD5E1";
 const HUE_A = "#62D0AD";
 const HUE_B = "#8E90F5";
+const ZERO_HUE = "#F7B23B";
 
 const fmt = (value: number) => value.toFixed(1);
 const EASE = { transition: "opacity 150ms ease, stroke-width 150ms ease" } as const;
@@ -201,13 +202,13 @@ function DialsDrawing() {
                 y={184}
                 textAnchor="middle"
                 fontSize="26"
-                fill={isZero ? HUE_A : INK}
+                fill={isZero ? ZERO_HUE : INK}
                 style={{ fontVariantNumeric: "tabular-nums" }}
             >
                 {`= ${fmt(productValue)}`}
             </text>
             {isZero && (
-                <text x={VIEW_W / 2} y={212} textAnchor="middle" fontSize="11" fill={HUE_A}>
+                <text x={VIEW_W / 2} y={212} textAnchor="middle" fontSize="11" fill={ZERO_HUE}>
                     a dial is on zero
                 </text>
             )}
@@ -226,7 +227,7 @@ function DialsDrawing() {
                     opacity={0.22}
                 />
             ))}
-            <line x1={productToTrailX(0)} y1={TRAIL_Y - 13} x2={productToTrailX(0)} y2={TRAIL_Y + 13} stroke={HUE_A} strokeWidth={2.5} strokeLinecap="round" />
+            <line x1={productToTrailX(0)} y1={TRAIL_Y - 13} x2={productToTrailX(0)} y2={TRAIL_Y + 13} stroke={ZERO_HUE} strokeWidth={2.5} strokeLinecap="round" />
             <line
                 x1={productToTrailX(clamp(productValue, -TRAIL_MAX, TRAIL_MAX))}
                 y1={TRAIL_Y - 11}
@@ -239,7 +240,7 @@ function DialsDrawing() {
             <text x={TRAIL_X0} y={TRAIL_Y + 28} textAnchor="middle" fontSize="11" fill={INK_STRUCTURE}>
                 -36
             </text>
-            <text x={productToTrailX(0)} y={TRAIL_Y + 28} textAnchor="middle" fontSize="11" fill={HUE_A}>
+            <text x={productToTrailX(0)} y={TRAIL_Y + 28} textAnchor="middle" fontSize="11" fill={ZERO_HUE}>
                 0
             </text>
             <text x={TRAIL_X1} y={TRAIL_Y + 28} textAnchor="middle" fontSize="11" fill={INK_STRUCTURE}>
@@ -298,7 +299,7 @@ export const productIsZeroBlocks: ReactElement[] = [
 
     <StackLayout key="layout-zero-product-invite" maxWidth="xl">
         <Block id="zero-product-invite" padding="sm">
-            <EditableParagraph id="para-zero-product-invite" blockId="zero-product-invite">Two dials hold a number each, and their product sits between them. Turn <InlineLinkedHighlight varName={"zeroProductHighlight"} highlightId={"dial-a"} color={"#62D0AD"} bgColor={"rgba(98, 208, 173, 0.2)"} id={"link-zero-product-dial-a"}>the teal dial</InlineLinkedHighlight> or <InlineLinkedHighlight varName={"zeroProductHighlight"} highlightId={"dial-b"} color={"#a855f7"} bgColor={"rgba(98, 208, 173, 0.2)"} id={"link-zero-product-dial-b"}>the indigo dial</InlineLinkedHighlight> and try to land that product exactly on zero, watching the faint trail of everything you pass on the way.</EditableParagraph>
+            <EditableParagraph id="para-zero-product-invite" blockId="zero-product-invite">Two dials hold a number each, and their product sits between them. Turn <InlineLinkedHighlight varName={"zeroProductHighlight"} highlightId={"dial-a"} color={"#62D0AD"} bgColor={"rgba(98, 208, 173, 0.2)"} id={"link-zero-product-dial-a"}>the teal dial</InlineLinkedHighlight> or <InlineLinkedHighlight varName={"zeroProductHighlight"} highlightId={"dial-b"} color={"#8E90F5"} bgColor={"rgba(142, 144, 245, 0.2)"} id={"link-zero-product-dial-b"}>the indigo dial</InlineLinkedHighlight> and try to land that product exactly on zero, watching the faint trail of everything you pass on the way.</EditableParagraph>
         </Block>
     </StackLayout>,
 
@@ -312,10 +313,13 @@ export const productIsZeroBlocks: ReactElement[] = [
         <Block id="zero-product-reflection" padding="sm">
             <EditableParagraph id="para-zero-product-reflection" blockId="zero-product-reflection">
                 Small numbers get the product close, but only a zero on one of the dials ever
-                lands it. So <InlineFormula latex="(x + 2)(x + 3) = 0" colorMap={{}} /> forces one
+                lands it. So <InlineFormula
+                    latex="\clr{first}{(x + 2)}\clr{second}{(x + 3)} = \clr{zero}{0}"
+                    colorMap={{ first: "#62D0AD", second: "#8E90F5", zero: "#F7B23B" }}
+                /> forces one
                 bracket to be empty, and there are two ways to do that:{" "}
-                <InlineFormula latex="x = -2" colorMap={{}} /> or{" "}
-                <InlineFormula latex="x = -3" colorMap={{}} />.
+                <InlineFormula latex="\clr{first}{x = -2}" colorMap={{ first: "#62D0AD" }} /> or{" "}
+                <InlineFormula latex="\clr{second}{x = -3}" colorMap={{ second: "#8E90F5" }} />.
             </EditableParagraph>
         </Block>
     </StackLayout>,
@@ -371,8 +375,11 @@ export const productIsZeroBlocks: ReactElement[] = [
         <Block id="zero-product-question-root" padding="md">
             <EditableParagraph id="para-zero-product-question-root" blockId="zero-product-question-root">
                 A different pair of brackets gives{" "}
-                <InlineFormula latex="(x - 4)(x + 1) = 0" colorMap={{}} />, which is solved by{" "}
-                <InlineFormula latex="x = 4" colorMap={{}} /> and by{" "}
+                <InlineFormula
+                    latex="\clr{first}{(x - 4)}\clr{second}{(x + 1)} = \clr{zero}{0}"
+                    colorMap={{ first: "#62D0AD", second: "#8E90F5", zero: "#F7B23B" }}
+                />, which is solved by{" "}
+                <InlineFormula latex="\clr{first}{x = 4}" colorMap={{ first: "#62D0AD" }} /> and by{" "}
                 <InlineFeedback
                     varName="answer_zero_product_root"
                     correctValue={["-1", "x = -1"]}

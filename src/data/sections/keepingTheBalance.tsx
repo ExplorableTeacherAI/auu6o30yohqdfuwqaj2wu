@@ -428,7 +428,10 @@ export const keepingTheBalanceBlocks: ReactElement[] = [
         <Block id="balance-worked-step" padding="sm">
             <EditableParagraph id="para-balance-worked-step" blockId="balance-worked-step">
                 Start with the move that keeps things level: four blocks off each side, and{" "}
-                <InlineFormula latex="3x = 15" colorMap={{}} /> is left, still balanced. From
+                <InlineFormula
+                    latex="\clr{bag}{3x} = \clr{block}{15}"
+                    colorMap={{ bag: "#62D0AD", block: "#64748B" }}
+                /> is left, still balanced. From
                 there, keep stripping both pans until a single bag stands alone.
             </EditableParagraph>
         </Block>
@@ -443,7 +446,10 @@ export const keepingTheBalanceBlocks: ReactElement[] = [
     <StackLayout key="layout-balance-reflection" maxWidth="xl">
         <Block id="balance-reflection" padding="sm">
             <EditableParagraph id="para-balance-reflection" blockId="balance-reflection">
-                One bag ends up facing five blocks, so <InlineFormula latex="x = 5" colorMap={{}} />.
+                One bag ends up facing five blocks, so <InlineFormula
+                    latex="\clr{bag}{x} = \clr{block}{5}"
+                    colorMap={{ bag: "#62D0AD", block: "#64748B" }}
+                />.
                 Nothing clever happened: every single move was done to both pans at once. That one
                 rule solves every linear equation you will meet.
             </EditableParagraph>

@@ -359,18 +359,26 @@ export const bracketsBothSidesBlocks: ReactElement[] = [
     <StackLayout key="layout-brackets-worked-example" maxWidth="xl">
         <Block id="brackets-worked-example" padding="sm">
             <EditableParagraph id="para-brackets-worked-example" blockId="brackets-worked-example">
-                Some equations hide the <InlineFormula latex="x" colorMap={{}} /> in more than one
-                place, like <InlineFormula latex="2(x + 3) = x + 11" colorMap={{}} />. Expand the
-                bracket and the left side becomes <InlineFormula latex="2x + 6" colorMap={{}} />,
+                Some equations hide the{" "}
+                <InlineFormula latex="\clr{marker}{x}" colorMap={{ marker: "#334155" }} /> in more
+                than one
+                place, like <InlineFormula
+                    latex="\clr{left}{2(x + 3)} = \clr{right}{x + 11}"
+                    colorMap={{ left: "#62D0AD", right: "#8E90F5" }}
+                />. Expand the
+                bracket and the left side becomes <InlineFormula latex="\clr{left}{2x + 6}" colorMap={{ left: "#62D0AD" }} />,
                 so the equation now reads{" "}
-                <InlineFormula latex="2x + 6 = x + 11" colorMap={{}} />.
+                <InlineFormula
+                    latex="\clr{left}{2x + 6} = \clr{right}{x + 11}"
+                    colorMap={{ left: "#62D0AD", right: "#8E90F5" }}
+                />.
             </EditableParagraph>
         </Block>
     </StackLayout>,
 
     <StackLayout key="layout-brackets-invite" maxWidth="xl">
         <Block id="brackets-invite" padding="sm">
-            <EditableParagraph id="para-brackets-invite" blockId="brackets-invite">Each side is worth something in its own right, and <InlineLinkedHighlight varName={"bracketsHighlight"} highlightId={"left-side"} color={"#62D0AD"} bgColor={"rgba(98, 208, 173, 0.2)"} id={"link-brackets-left-side"}>the teal side</InlineLinkedHighlight> grows twice as fast as <InlineLinkedHighlight varName={"bracketsHighlight"} highlightId={"right-side"} color={"#a855f7"} bgColor={"rgba(98, 208, 173, 0.2)"} id={"link-brackets-right-side"}>the indigo side</InlineLinkedHighlight>, so somewhere they have to agree. Slide the marker along the number line until the two towers stand exactly level, and watch the dots on the graph beside them.</EditableParagraph>
+            <EditableParagraph id="para-brackets-invite" blockId="brackets-invite">Each side is worth something in its own right, and <InlineLinkedHighlight varName={"bracketsHighlight"} highlightId={"left-side"} color={"#62D0AD"} bgColor={"rgba(98, 208, 173, 0.2)"} id={"link-brackets-left-side"}>the teal side</InlineLinkedHighlight> grows twice as fast as <InlineLinkedHighlight varName={"bracketsHighlight"} highlightId={"right-side"} color={"#8E90F5"} bgColor={"rgba(142, 144, 245, 0.2)"} id={"link-brackets-right-side"}>the indigo side</InlineLinkedHighlight>, so somewhere they have to agree. Slide the marker along the number line until the two towers stand exactly level, and watch the dots on the graph beside them.</EditableParagraph>
         </Block>
     </StackLayout>,
 
@@ -386,10 +394,13 @@ export const bracketsBothSidesBlocks: ReactElement[] = [
     <StackLayout key="layout-brackets-reflection" maxWidth="xl">
         <Block id="brackets-reflection" padding="sm">
             <EditableParagraph id="para-brackets-reflection" blockId="brackets-reflection">
-                They level off at <InlineFormula latex="x = 5" colorMap={{}} />, both sides worth
+                They level off at{" "}
+                <InlineFormula latex="\clr{marker}{x = 5}" colorMap={{ marker: "#334155" }} />, both
+                sides worth
                 16, and the graph shows why there is only one answer: two straight lines of
                 different steepness cross exactly once. Taking one{" "}
-                <InlineFormula latex="x" colorMap={{}} /> and then 6 from each side lands on the
+                <InlineFormula latex="\clr{marker}{x}" colorMap={{ marker: "#334155" }} /> and then 6
+                from each side lands on the
                 same place without any drawing.
             </EditableParagraph>
         </Block>
@@ -397,7 +408,7 @@ export const bracketsBothSidesBlocks: ReactElement[] = [
 
     <StackLayout key="layout-brackets-question-solve" maxWidth="xl">
         <Block id="brackets-question-solve" padding="md">
-            <EditableParagraph id="para-brackets-question-solve" blockId="brackets-question-solve">Tidy up <InlineFormula latex={"3(x + 2) = x + 14"} colorMap={{}} color={"#000000"} id={"inlineFormula-1788024370374-np53a"} /> the same way, and <InlineFormula latex={"x"} colorMap={{}} color={"#000000"} id={"inlineFormula-1788024370374-rwhrm"} /> turns out to be <InlineFeedback varName={"answer_brackets_solve"} correctValue={"4"} caseSensitive={false} position={"terminal"} successMessage={"— spot on, expanding gives 3x + 6 = x + 14, and clearing one x and the 6 leaves 2x = 8"} failureMessage={"— not this time"} hint={"Expand the bracket first, then take one x from each side, then take 6 from each side"} reviewLabel={"Review this concept"}><InlineClozeInput varName={"answer_brackets_solve"} correctAnswer={"4"} placeholder={"???"} color={"#E53935"} bgColor={"rgba(59, 130, 246, 0.35)"} caseSensitive={false} id={"cloze-1788024370374-z2al9"} /></InlineFeedback>.</EditableParagraph>
+            <EditableParagraph id="para-brackets-question-solve" blockId="brackets-question-solve">Tidy up <InlineFormula latex={"\\clr{left}{3(x + 2)} = \\clr{right}{x + 14}"} colorMap={{ left: "#62D0AD", right: "#8E90F5" }} color={"#334155"} id={"inlineFormula-1788024370374-np53a"} /> the same way, and <InlineFormula latex={"\\clr{marker}{x}"} colorMap={{ marker: "#334155" }} color={"#334155"} id={"inlineFormula-1788024370374-rwhrm"} /> turns out to be <InlineFeedback varName={"answer_brackets_solve"} correctValue={"4"} caseSensitive={false} position={"terminal"} successMessage={"— spot on, expanding gives 3x + 6 = x + 14, and clearing one x and the 6 leaves 2x = 8"} failureMessage={"— not this time"} hint={"Expand the bracket first, then take one x from each side, then take 6 from each side"} reviewLabel={"Review this concept"}><InlineClozeInput varName={"answer_brackets_solve"} correctAnswer={"4"} placeholder={"???"} color={"#E53935"} bgColor={"rgba(59, 130, 246, 0.35)"} caseSensitive={false} id={"cloze-1788024370374-z2al9"} /></InlineFeedback>.</EditableParagraph>
         </Block>
     </StackLayout>,
 

@@ -348,7 +348,10 @@ export const factorisingToSolveBlocks: ReactElement[] = [
         <Block id="factorising-worked-example" padding="sm">
             <EditableParagraph id="para-factorising-worked-example" blockId="factorising-worked-example">
                 Real quadratics arrive tangled up, like{" "}
-                <InlineFormula latex="x^2 + 5x + 6 = 0" colorMap={{}} />. To use the zero rule we
+                <InlineFormula
+                    latex="\clr{square}{x^2} + \clr{strip}{5x} + \clr{unit}{6} = 0"
+                    colorMap={{ square: "#62D0AD", strip: "#8E90F5", unit: "#94A3B8" }}
+                />. To use the zero rule we
                 need two brackets multiplied together, so we hunt for two numbers that multiply
                 to 6 and add to 5.
             </EditableParagraph>
@@ -392,10 +395,11 @@ export const factorisingToSolveBlocks: ReactElement[] = [
         <Block id="factorising-solutions" padding="sm">
             <EditableParagraph id="para-factorising-solutions" blockId="factorising-solutions">
                 Only 2 and 3 close the rectangle, and it measures{" "}
-                <InlineFormula latex="x + 2" colorMap={{}} /> by{" "}
-                <InlineFormula latex="x + 3" colorMap={{}} />. The brackets hold +2 and +3, yet
-                the solutions are <InlineFormula latex="x = -2" colorMap={{}} /> and{" "}
-                <InlineFormula latex="x = -3" colorMap={{}} />, because each bracket has to end up
+                <InlineFormula latex="\clr{side}{x + 2}" colorMap={{ side: "#62D0AD" }} /> by{" "}
+                <InlineFormula latex="\clr{side}{x + 3}" colorMap={{ side: "#62D0AD" }} />. The brackets hold +2 and +3, yet
+                the solutions are <InlineFormula latex="\clr{side}{x = -2}" colorMap={{ side: "#62D0AD" }} /> and{" "}
+                <InlineFormula latex="\clr{side}{x = -3}" colorMap={{ side: "#62D0AD" }} />, because each
+                bracket has to end up
                 empty.
             </EditableParagraph>
         </Block>
@@ -451,8 +455,12 @@ export const factorisingToSolveBlocks: ReactElement[] = [
     <StackLayout key="layout-factorising-question-solve" maxWidth="xl">
         <Block id="factorising-question-solve" padding="md">
             <EditableParagraph id="para-factorising-question-solve" blockId="factorising-question-solve">
-                Hunt down the pair for <InlineFormula latex="x^2 + 7x + 12 = 0" colorMap={{}} />:
-                one solution is <InlineFormula latex="x = -3" colorMap={{}} /> and the other is{" "}
+                Hunt down the pair for <InlineFormula
+                    latex="\clr{square}{x^2} + \clr{strip}{7x} + \clr{unit}{12} = 0"
+                    colorMap={{ square: "#62D0AD", strip: "#8E90F5", unit: "#94A3B8" }}
+                />:
+                one solution is <InlineFormula latex="\clr{side}{x = -3}" colorMap={{ side: "#62D0AD" }} /> and the other
+                is{" "}
                 <InlineFeedback
                     varName="answer_factor_solution"
                     correctValue={["-4", "x = -4"]}

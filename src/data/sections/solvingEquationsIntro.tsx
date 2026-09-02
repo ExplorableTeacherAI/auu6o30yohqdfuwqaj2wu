@@ -26,8 +26,14 @@ export const solvingEquationsIntroBlocks: ReactElement[] = [
         <Block id="solving-equations-promise" padding="sm">
             <EditableParagraph id="para-solving-equations-promise" blockId="solving-equations-promise">
                 We will do it in two steps: first the straight-line kind like{" "}
-                <InlineFormula latex="3x + 4 = 19" colorMap={{}} />, then the quadratic kind like{" "}
-                <InlineFormula latex="x^2 + 5x + 6 = 0" colorMap={{}} />, where two different
+                <InlineFormula
+                    latex="\clr{bag}{3x} + \clr{block}{4} = \clr{block}{19}"
+                    colorMap={{ bag: "#62D0AD", block: "#64748B" }}
+                />, then the quadratic kind like{" "}
+                <InlineFormula
+                    latex="\clr{square}{x^2} + \clr{strip}{5x} + \clr{unit}{6} = 0"
+                    colorMap={{ square: "#62D0AD", strip: "#8E90F5", unit: "#94A3B8" }}
+                />, where two different
                 numbers both fit. You already collect like terms, undo operations and expand
                 brackets, which is the whole toolkit. By the end you will solve both kinds yourself.
             </EditableParagraph>
